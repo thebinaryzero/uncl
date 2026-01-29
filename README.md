@@ -1,2 +1,2 @@
 # uncl
-UNCL - Unified Natural language Command Line interface
+uncl - Unified Natural language Command Line interface
