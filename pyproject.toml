@@ -1,0 +1,100 @@
+[project]
+name = "uncl"
+version = "0.1.0"
+description = "Unified Natural Language CLI - Convert natural language to CLI commands"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = "==3.12.12"
+authors = [
+    { name = "uncl contributors" }
+]
+keywords = ["cli", "natural-language", "llm", "rag", "mcp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+]
+
+dependencies = [
+    # CLI Framework
+    "typer[all]>=0.9.0",
+
+    # MCP Server
+    "fastmcp>=2.0.0",
+
+    # LLM Integration
+    "litellm>=1.0.0",
+
+    # Vector Store
+    "sqlite-vec>=0.1.0",
+
+    # Embeddings
+    "fastembed>=0.2.0",
+
+    # Document Ingestion
+    "docling>=2.0.0",
+    "crawl4ai>=0.3.0",
+
+    # Configuration
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+
+    # Utilities
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+uncl = "uncl.interface.cli.app:app"
+
+[project.urls]
+Homepage = "https://github.com/uncl/uncl"
+Repository = "https://github.com/uncl/uncl"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/uncl"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+# uncl configuration defaults
+[tool.uncl]
+[tool.uncl.llm]
+provider = "openai"
+model = "gpt-4o-mini"
+
+[tool.uncl.embedding]
+provider = "fastembed"
+model = "BAAI/bge-small-en-v1.5"
+
+[tool.uncl.storage]
+path = ".uncl/data"
